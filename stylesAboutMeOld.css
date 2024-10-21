@@ -1,0 +1,146 @@
+ body {
+  margin: 0;
+}
+ul,
+li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.scroll-wrap {
+  position: relative;
+}
+.scroll-wrap li {
+  height: 100vh;
+}
+.movie {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  color: #fff;
+  background:#111;
+}
+.movie .bg {
+  width: 100vw;
+  height: 100vh;
+  /* Center slide text vertically */
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+}
+.movie .bg img {
+/*   height:100vh; */
+  transition: 1s;
+}
+.movie.step-2 .bg img {
+  transform: scale(0.9);
+}
+.movie.step-3 .bg img {
+  transform: scale(0.8);
+}
+.story,
+.actor {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  text-align: center;
+  opacity: 0;
+  transition: 1s;
+}
+.story:before,
+.actor:before {
+  content: "";
+  display: inline-block;
+  height: 100%;
+  vertical-align: bottom;
+}
+.story-content,
+.actor ul {
+  display: inline-block;
+  margin-bottom: 10%;
+  width: 1000px;
+  text-align: center;
+  transform: scale(2);
+  transition: 1s;
+}
+.actor ul{
+  margin-bottom: 20%;
+}
+.actor ul li {
+  display: inline-block;
+  vertical-align: top;
+  margin:0 10px 0 10px;
+}
+
+.movie.step-2 .story,
+.movie.step-3 .story {
+  opacity: 1;
+}
+.movie.step-2 .story-content {
+  transform: scale(1);
+}
+.movie.step-3 .story-content {
+  transform: scale(0.5);
+}
+.movie.step-3 .actor {
+  opacity: 1;
+}
+.movie.step-3 .actor ul {
+  transform: scale(1);
+}
+
+
+// aurora
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;800&display=swap");
+
+:root {
+  --bg: black;
+  --clr-1: #00c2ff;
+  --clr-2: #33ff8c;
+  --clr-3: #ffc640;
+  --clr-4: #e54cff;
+
+  --blur: 1rem;
+  --fs: clamp(3rem, 8vw, 7rem);
+  --ls: clamp(-1.75px, -0.25vw, -3.5px);
+}
+
+
+.title {
+  font-size: var(--fs);
+  font-weight: 800;
+  letter-spacing: var(--ls);
+  position: relative;
+  overflow: hidden;
+  background: var(--bg);
+  margin: 0;
+  z-index: -1;
+}
+
+@media only screen and (max-width: 600px) {
+    .story-content,
+    .actor ul {
+    display: inline-block;
+    text-align: left;
+    margin-bottom: 10%;
+    width: 300px;
+    text-align: center;
+    transform: scale(2);
+    transition: 1s;
+    }
+}

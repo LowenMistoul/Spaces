@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>W3.CSS Template</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="./stylesAboutMeOld.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"   integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="   crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.14.0/jquery-ui.min.js"   integrity="sha256-Fb0zP4jE3JHqu+IBB9YktLcSjI1Zc6J2b6gTjB0LpoM="   crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+    <script>
+        lasScrTop = 0;
+        opa = 1;
+        sca = 5;
+        $(window).scroll(function () {
+        winTop = $(this).scrollTop();
+        winMid = $(window).height() / 2 + winTop;
+        winBot = $(window).height() + winTop;
+        // scroll到li,執行動態
+        $(".scroll-wrap li").each(function () {
+            liHei = $(this).height();
+            liOff = $(this).offset();
+            liTop = liOff.top;
+            liBot = liTop + liHei;
+            if (liBot <= winMid || liTop >= winBot) {
+                // li滑出視窗時移除 inView
+                $(this).removeClass("inView");
+            } else if (liTop <= winMid) {
+                // li滑到中間時，加入 inView
+                $(this).addClass("inView");
+            }
+            inViewEq = $(".inView").index() + 1;
+            console.log(inViewEq);
+            $(".movie")
+            .attr("class", "")
+            .addClass("movie step-" + inViewEq);
+        });
+        // 判斷scroll往上滑或往下滑
+        if (winTop > lasScrTop) {
+            // 往下滑
+        } else {
+            // 往上滑
+        }
+        lasScrTop = winTop;
+        });
+    </script>
+  </head>
+<body>
+ <div class="movie">
+    <div class="bg">
+        <h1 class="w3-jumbo title">ABOUT ME</h1>
+    </div>
+  <div class="story">
+    <div class="story-content">
+      <h2>Lowen MISTOUL</h2>
+       <h4 id="text">With a strong foundation in Information Techniques and New Media (DEC), I developed 
+        a diverse and comprehensive skill set in web development and IT throughout my career. 
+      </h4>
+      
+    </div>
+  </div>
+  <div class="actor">
+    <ul>
+      <li>
+        <h2>UAP - Traction</h2>
+        <h4>Web Integrator </h4>
+      </li>
+      <li>
+        <h2>Adviso</h2>
+        <h4> Information & managing </h4>
+        <h4> systems coordinator </h4>
+      </li>
+      <li>
+        <h2>Kaayu</h2>
+        <h4>Web Developer </h4>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<ul class="scroll-wrap">
+  <li></li>
+  <li></li>
+  <li></li>
+</ul>
+</body>
+</html>

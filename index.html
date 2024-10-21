@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>W3.CSS Template</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"   integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="   crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.14.0/jquery-ui.min.js"   integrity="sha256-Fb0zP4jE3JHqu+IBB9YktLcSjI1Zc6J2b6gTjB0LpoM="   crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+    <style>
+    body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
+    .w3-row-padding img {margin-bottom: 12px}
+    /* Set the width of the sidebar to 120px */
+    .w3-sidebar {width: 120px;background: #222;}
+    </style>
+    <script>
+      $(document).ready(function(){
+        $("#card").hide();
+        //$(".blob").hide();
+        function subtitleColor(color){
+          $(".subtitle").animate({
+            color: color,  // New background color
+          }, {
+            duration: 500,   // Duration of 2 seconds
+            easing: "swing",  // jQuery UI easing function
+          });
+        };
+
+        $(".blob").on("mouseenter" , function(){
+          subtitleColor($(this).css( "background-color" ));
+        }).on("mouseleave",function(){
+          subtitleColor("white");
+        });
+
+        var height = window.innerHeight,
+        x= 0, y= height/2,
+        curveX = 10,
+        curveY = 0,
+        targetX = 0,
+        xitteration = 0,
+        yitteration = 0,
+        menuExpanded = false;
+        
+        blob = $('#blob'),
+        blobPath = $('#blob-path'),
+
+        hamburger = $('.hamburger');
+
+        $(this).on('mousemove', function(e){
+          x = e.pageX;
+          
+          y = e.pageY;
+        });
+
+        $('.hamburger, .menu-inner').on('mouseenter', function(){
+          $(this).parent().addClass('expanded');
+          menuExpanded = true;
+          $(".line:nth-child(1)").addClass('animation1');
+          $(".line:nth-child(2)").addClass('animation2');
+          $(".line:nth-child(3)").addClass('animation3');
+
+        });
+
+        $('.menu-inner').on('mouseleave', function(){
+          menuExpanded = false;
+          $(this).parent().removeClass('expanded');
+          $(".line:nth-child(1)").removeClass('animation1');
+          $(".line:nth-child(2)").removeClass('animation2');
+          $(".line:nth-child(3)").removeClass('animation3');
+        });
+
+        function easeOutExpo(currentIteration, startValue, changeInValue, totalIterations) {
+          return changeInValue * (-Math.pow(2, -10 * currentIteration / totalIterations) + 1) + startValue;
+        }
+
+        var hoverZone = 150;
+        var expandAmount = 20;
+        
+        function svgCurve() {
+          if ((curveX > x-1) && (curveX < x+1)) {
+            xitteration = 0;
+          } else {
+            if (menuExpanded) {
+              targetX = 0;
+            } else {
+              xitteration = 0;
+              if (x > hoverZone) {
+                targetX = 0;
+              } else {
+                targetX = -(((60+expandAmount)/100)*(x-hoverZone));
+              }     
+            }
+            xitteration++;
+          }
+
+          if ((curveY > y-1) && (curveY < y+1)) {
+            yitteration = 0;
+          } else {
+            yitteration = 0;
+            yitteration++;  
+          }
+
+          curveX = easeOutExpo(xitteration, curveX, targetX-curveX, 100);
+          curveY = easeOutExpo(yitteration, curveY, y-curveY, 100);
+
+          var anchorDistance = 200;
+          var curviness = anchorDistance - 40;
+
+          var newCurve2 = "M60,"+height+"H0V0h60v"+(curveY-anchorDistance)+"c0,"+curviness+","+curveX+","+curviness+","+curveX+","+anchorDistance+"S60,"+(curveY)+",60,"+(curveY+(anchorDistance*2))+"V"+height+"z";
+
+          blobPath.attr('d', newCurve2);
+
+          blob.width(curveX+60);
+
+          hamburger.css('transform', 'translate('+curveX+'px, '+curveY+'px)');
+          
+          //$('h2').css('transform', 'translateY('+curveY+'px)');
+          window.requestAnimationFrame(svgCurve);
+        }
+
+        window.requestAnimationFrame(svgCurve);
+
+        $('#contact').on('click', function(){
+          $("#card").fadeIn();
+        });
+
+        $('#closeContact').on('click', function(){
+          $("#card").fadeOut();
+        });
+      });
+    </script>
+  </head>
+<body>
+
+
+  
+
+    <!-- Header/Home -->
+<div class="lamp">
+
+  <div class="lava"> 
+      <div id="menu">
+    <div class="hamburger">
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+    </div>
+    <div class="menu-inner">
+      
+      <ul>
+        <li><a href="/aboutme.html">About Me</a></li>
+        <li id="contact" >Contact Me</li>
+        <li>Projects</li>
+      </ul>
+    </div>
+  
+  
+    
+    <svg version="1.1" id="blob"xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <path id="blob-path" d="M60,500H0V0h60c0,0,20,172,20,250S60,900,60,500z"/>
+    </svg>
+  </div>
+    
+    <div class="blob"></div>
+    <div class="blob"></div>
+    <div class="blob"></div>
+    <div class="blob"></div>
+    <div class="blob"></div>
+    <div class="blob"></div>
+    <div class="blob"></div>
+    <div class="blob"></div>
+    <div class="blob top"></div>
+    <div class="blob bottom"></div>
+  </div>
+    <div class="header">
+      <h1 class="w3-jumbo title"><span class="w3-hide-small">I'm</span> Lowen Mistoul.
+        <div class="aurora">
+          <div class="aurora__item"></div>
+          <div class="aurora__item"></div>
+          <div class="aurora__item"></div>
+          <div class="aurora__item"></div>
+        </div>
+      </h1>
+      <p class="subtitle">Web Developer.</p>
+    <div>
+  </div>
+</div>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+  <defs>
+    <filter id="goo">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
+      <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="goo" />
+      <feBlend in="SourceGraphic" in2="goo" />
+    </filter>
+  </defs>
+</svg>
+
+<div id="card">
+    <div class="closeContactContainer">
+      <h1 style="cursor:pointer;" id="closeContact">x</h1>
+    </div>
+    <div class="contactContent">
+      <h2>Mail</h2>
+      <p>mistouldlowen@gmail.com</p>
+    </div>
+<div>
+
+
+
+        <!-- About Section 
+      
+    <div class="w3-content w3-justify w3-text-grey w3-padding-64 " id="about">
+      <h2 class="w3-text-light-grey w3-hide-small">Lowen </h2>
+      <hr style="width:110px" class="w3-opacity w3-hide-small">
+      <p id="text">With a strong foundation in Information Techniques and New Media (DEC), I developed 
+        a diverse and comprehensive skill set in web development and IT throughout my career. 
+        My experience included working in a marketing agency’s IT department, where I refined 
+        my technical problem-solving abilities and contributed to various digital projects. 
+        As a front-end developer for a start-up, I specialized in building responsive, 
+        user-centric web interfaces that enhanced the overall user experience. 
+        Later, as a web integrator, I focused on translating complex design concepts 
+        into fully functional, optimized websites. I also completed a 
+        Bachelor's degree in Web Application Development and Conception, further solidifying 
+        my expertise in web technologies, best practices, and development methodologies. 
+        This combination of IT, front-end development, and integration roles allowed me to 
+        deliver efficient and visually appealing web solutions.
+      </p>
+    </div>-->
+</body>
+</html>
